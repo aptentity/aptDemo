@@ -5,20 +5,28 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
+import com.aptentity.api.LCJViewBinder;
 import com.aptentity.aptdemo.bean.User;
-import com.baoyz.pg.PG;
+import com.aptentity.injectview.BindView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-    
+    @BindView(R.id.bt_convertParcelable)
+    public Button btn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        findViewById(R.id.bt_convertParcelable).setOnClickListener(this);
+        //findViewById(R.id.bt_convertParcelable).setOnClickListener(this);
+        LCJViewBinder.bind(this);
+
+        btn.setOnClickListener(this);
 
         User user = getIntent().getParcelableExtra("user");
+
         if (user!=null){
             Log.i("zfl","user name = "+user.getName());
             Log.i("zfl","user age = "+user.getAge());
@@ -27,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
+
+
 
     @Override
     public void onClick(View view) {
